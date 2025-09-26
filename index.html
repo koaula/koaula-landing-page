@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Koaula - Aprenda Deslizando</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            koaula: '#7D50F0',
+            koaulaLight: '#9D70FF',
+            koaulaDark: '#5D30D0',
+            accent: '#FF9E5E'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0F0F13;
+      color: white;
+    }
+
+    .hero-video {
+      border-radius: 24px;
+      box-shadow: 0 25px 50px -12px rgba(125, 80, 240, 0.25);
+    }
+
+    .testimonial-card {
+      background: linear-gradient(145deg, #1E1E2A 0%, #2A2A3A 100%);
+    }
+
+    .koala-bounce {
+      animation: bounce 3s infinite;
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+
+    .swipe-indicator {
+      animation: swipe 2.5s infinite;
+    }
+
+    @keyframes swipe {
+
+      0%,
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      50% {
+        transform: translateY(20px);
+        opacity: 0.5;
+      }
+    }
+  </style>
+</head>
+
+<body class="antialiased">
+  <!-- Vanta.js Background -->
+  <div id="vanta-bg" class="fixed inset-0 -z-10 opacity-20"></div>
+
+  <!-- Header -->
+  <header class="container mx-auto px-6 py-6 md:py-8">
+    <div class="flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <img src="assets/koaula-logo.png" alt="Koaula Logo" class="w-32 rounded-full">
+      </div>
+      <nav class="hidden md:flex space-x-8">
+        <a href="#features" class="text-gray-300 hover:text-white transition">Recursos</a>
+        <a href="#how-it-works" class="text-gray-300 hover:text-white transition">Como Funciona</a>
+        <!-- <a href="#testimonials" class="text-gray-300 hover:text-white transition">Depoimentos</a> -->
+      </nav>
+      <button class="md:hidden">
+        <i data-feather="menu" class="text-white"></i>
+      </button>
+    </div>
+  </header>
+
+   <!-- Hero Section -->
+   <section class="container mx-auto px-6 py-16 md:py-24">
+     <div class="flex flex-col md:flex-row items-center justify-between">
+       <div class="md:w-1/2 mb-12 md:mb-0 text-center md:text-left">
+         <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6">
+           Estude <span class="bg-koaula from-koaula to-accent bg-clip-text text-transparent">para o
+             ENEM</span> deslizando
+         </h1>
+         <p class="text-xl text-gray-300 mb-8 max-w-lg mx-auto md:mx-0">
+           O Koaula transforma a educação em lições pequenas e viciantes com navegação estilo TikTok. Deslize para cima
+           para sua próxima micro-aula!
+         </p>
+         <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center md:justify-start">
+           <button
+             class="bg-koaula hover:bg-koaulaLight text-white px-8 py-4 rounded-full font-medium transition-all transform hover:scale-105 shadow-lg shadow-koaula/30">
+             Aguarde o lançamento!
+           </button>
+           <!-- <button
+             class="border border-gray-600 hover:border-white text-white px-8 py-4 rounded-full font-medium transition-all">
+             Ver Demo
+           </button> -->
+         </div>
+       </div>
+       <div class="hidden md:flex md:w-1/2 justify-center items-center">
+         <img src="assets/koa.png" alt="Koaula Hero Image" class="w-full max-w-md koala-bounce">
+       </div>
+     </div>
+   </section>
+
+  <!-- Features Section -->
+  <section id="features" class="container mx-auto px-6 py-16 md:py-24 bg-gradient-to-b from-transparent to-gray-900/50">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Por que o Koaula Funciona</h2>
+      <p class="text-gray-400 max-w-2xl mx-auto">Educação reimaginada para a geração do deslizar</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div
+        class="bg-gray-900/50 p-8 rounded-2xl border border-gray-800 hover:border-koaula transition-all hover:shadow-lg hover:shadow-koaula/20">
+        <div class="w-14 h-14 bg-koaula/10 rounded-xl flex items-center justify-center mb-6">
+          <i data-feather="clock" class="text-koaula w-6 h-6"></i>
+        </div>
+        <h3 class="text-xl font-semibold mb-3">Lições em Pequenas Doses</h3>
+        <p class="text-gray-400">Aprenda em blocos de 2-5 minutos perfeitos para sua capacidade de atenção. Sem mais
+          aulas de uma hora.</p>
+      </div>
+      <div
+        class="bg-gray-900/50 p-8 rounded-2xl border border-gray-800 hover:border-accent transition-all hover:shadow-lg hover:shadow-accent/20">
+        <div class="w-14 h-14 bg-accent/10 rounded-xl flex items-center justify-center mb-6">
+          <i data-feather="smartphone" class="text-accent w-6 h-6"></i>
+        </div>
+        <h3 class="text-xl font-semibold mb-3">Navegação por Deslizar</h3>
+        <p class="text-gray-400">Interface intuitiva estilo TikTok torna o aprendizado tão viciante quanto as redes
+          sociais.</p>
+      </div>
+      <div
+        class="bg-gray-900/50 p-8 rounded-2xl border border-gray-800 hover:border-koaulaLight transition-all hover:shadow-lg hover:shadow-koaulaLight/20">
+        <div class="w-14 h-14 bg-koaulaLight/10 rounded-xl flex items-center justify-center mb-6">
+          <i data-feather="award" class="text-koaulaLight w-6 h-6"></i>
+        </div>
+        <h3 class="text-xl font-semibold mb-3">Aprendizado Gamificado</h3>
+        <p class="text-gray-400">Ganhe pontos, desbloqueie níveis e compita com amigos para manter a motivação.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section id="how-it-works" class="container mx-auto px-6 py-16 md:py-24">
+    <div class="flex flex-col md:flex-row items-center">
+      <div class="md:w-1/2 mb-12 md:mb-0">
+        <div class="relative">
+          <div class="absolute -left-8 -top-8 w-32 h-32 bg-koaula/10 rounded-full blur-xl"></div>
+          <div class="relative">
+            <img src="http://static.photos/technology/640x360/42" alt="App Screens" class="rounded-2xl shadow-2xl">
+          </div>
+        </div>
+      </div>
+      <div class="md:w-1/2 md:pl-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">Como o Koaula Funciona</h2>
+        <div class="space-y-8">
+          <div class="flex">
+            <div class="flex-shrink-0 mr-6">
+              <div class="flex items-center justify-center w-12 h-12 rounded-full bg-koaula/10 text-koaula font-bold">1
+              </div>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-2">Escolha Seu Tópico</h3>
+              <p class="text-gray-400">Selecione entre centenas de cursos em idiomas, ciências, artes e muito mais.</p>
+            </div>
+          </div>
+          <div class="flex">
+            <div class="flex-shrink-0 mr-6">
+              <div class="flex items-center justify-center w-12 h-12 rounded-full bg-koaula/10 text-koaula font-bold">2
+              </div>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-2">Deslize pelas Lições</h3>
+              <p class="text-gray-400">Cada deslizada revela uma nova micro-aula - vídeo, quiz ou exercício interativo.
+              </p>
+            </div>
+          </div>
+          <div class="flex">
+            <div class="flex-shrink-0 mr-6">
+              <div class="flex items-center justify-center w-12 h-12 rounded-full bg-koaula/10 text-koaula font-bold">3
+              </div>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-2">Acompanhe Seu Progresso</h3>
+              <p class="text-gray-400">Veja seu conhecimento crescer com nosso sistema inteligente de acompanhamento de
+                progresso.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <!-- <section id="testimonials"
+    class="container mx-auto px-6 py-16 md:py-24 bg-gradient-to-b from-gray-900/50 to-transparent">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">O que os Estudantes Dizem</h2>
+      <p class="text-gray-400 max-w-2xl mx-auto">Junte-se a mais de 250.000 estudantes felizes que transformaram sua
+        educação</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="testimonial-card p-8 rounded-2xl">
+        <div class="flex items-center mb-6">
+          <img src="http://static.photos/people/200x200/42" alt="User" class="w-12 h-12 rounded-full mr-4">
+          <div>
+            <h4 class="font-semibold">Alex Morgan</h4>
+            <div class="flex text-yellow-400">
+              <i data-feather="star" class="w-4 h-4 fill-current"></i>
+              <i data-feather="star" class="w-4 h-4 fill-current"></i>
+              <i data-feather="star" class="w-4 h-4 fill-current"></i>
+              <i data-feather="star" class="w-4 h-4 fill-current"></i>
+              <i data-feather="star" class="w-4 h-4 fill-current"></i>
+            </div>
+          </div>
+        </div>
+        <p class="text-gray-300">"Aprendi mais espanhol em 2 semanas com o Koaula do que em 6 meses de aulas
+          tradicionais. O formato de deslizar torna tão fácil praticar em qualquer lugar!"</p>
+      </div>
+      <div class="testimonial-card p-8 rounded-2xl">
+        <div class="flex items-center mb-6">
+          <img src="http://static.photos/people/200x200/43" alt="User" class="w-12 h-12 rounded-full mr-4">
+          <div>
+            <h4 class="font-semibold">Jamie Chen</h4>
+            <div class="flex text-yellow-400">
+              <i data-feather="star" class="w-4 h-4 fill-current"></i>
+              <i data-feather="star" class="w-4 h-4 fill-current"></i>
+              <i data-feather="star" class="w-4 h-4 fill-current"></i>
+              <i data-feather="star" class="w-4 h-4 fill-current"></i>
+              <i data-feather="star" class="w-4 h-4 fill-current"></i>
+            </div>
+          </div>
+        </div>
+        <p class="text-gray-300">"Finalmente um app que entende como minha geração aprende! Uso o Koaula durante meu
+          trajeto e agora realmente fico ansioso para estudar."</p>
+      </div>
+      <div class="testimonial-card p-8 rounded-2xl">
+        <div class="flex items-center mb-6">
+          <img src="http://static.photos/people/200x200/44" alt="User" class="w-12 h-12 rounded-full mr-4">
+          <div>
+            <h4 class="font-semibold">Taylor Smith</h4>
+            <div class="flex text-yellow-400">
+              <i data-feather="star" class="w-4 h-4 fill-current"></i>
+              <i data-feather="star" class="w-4 h-4 fill-current"></i>
+              <i data-feather="star" class="w-4 h-4 fill-current"></i>
+              <i data-feather="star" class="w-4 h-4 fill-current"></i>
+              <i data-feather="star" class="w-4 h-4 fill-current"></i>
+            </div>
+          </div>
+        </div>
+        <p class="text-gray-300">"O equilíbrio perfeito entre educação e entretenimento. Nem percebo que estou
+          aprendendo até me pegar usando novos conceitos na vida real!"</p>
+      </div>
+    </div>
+  </section> -->
+
+  <!-- CTA Section -->
+  <section class="container mx-auto px-6 py-16 md:py-24 text-center">
+    <div
+      class="max-w-3xl mx-auto bg-gradient-to-br from-gray-900 to-gray-800 p-12 rounded-3xl relative overflow-hidden">
+      <div class="absolute -right-20 -top-20 w-64 h-64 bg-koaula/10 rounded-full blur-3xl"></div>
+      <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-accent/10 rounded-full blur-3xl"></div>
+      <div class="relative z-10">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">Pronto para Transformar Seu Aprendizado?</h2>
+        <p class="text-gray-300 mb-8">Junte-se à revolução educacional. Baixe o Koaula hoje e faça cada deslizada valer
+          a pena.</p>
+        <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+          <button
+            class="bg-koaula hover:bg-koaulaLight text-white px-8 py-4 rounded-full font-medium transition-all transform hover:scale-105 shadow-lg shadow-koaula/30 flex items-center justify-center">
+            <i data-feather="apple" class="mr-2"></i>
+            Lançamento em breve!
+          </button>
+          <!-- <button
+            class="bg-white hover:bg-gray-100 text-gray-900 px-8 py-4 rounded-full font-medium transition-all transform hover:scale-105 flex items-center justify-center">
+            <i data-feather="play" class="mr-2"></i>
+            Google Play
+          </button> -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+
+</html>
