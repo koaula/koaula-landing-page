@@ -109,6 +109,14 @@
     .theme-toggle:hover {
       transform: scale(1.1);
     }
+
+    .theme-icon {
+      transition: opacity 0.2s ease;
+    }
+
+    .theme-icon.hidden {
+      display: none;
+    }
   </style>
 </head>
 
@@ -131,17 +139,19 @@
         <!-- <a href="#testimonials" class="text-gray-400 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white transition">Depoimentos</a> -->
         <button id="theme-toggle"
           class="theme-toggle p-2 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-700"
-          title="Toggle theme">
-          <i data-feather="sun" class="w-5 h-5 hidden dark:block"></i>
-          <i data-feather="moon" class="w-5 h-5 block dark:hidden"></i>
+          title="Theme: Click to cycle Light → Dark → System">
+          <i data-feather="sun" class="w-5 h-5 theme-icon theme-light"></i>
+          <i data-feather="moon" class="w-5 h-5 theme-icon theme-dark hidden"></i>
+          <i data-feather="monitor" class="w-5 h-5 theme-icon theme-system hidden"></i>
         </button>
       </nav>
       <div class="flex items-center space-x-4 md:hidden">
         <button id="theme-toggle-mobile"
           class="theme-toggle p-2 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-700"
-          title="Toggle theme">
-          <i data-feather="sun" class="w-5 h-5 hidden dark:block"></i>
-          <i data-feather="moon" class="w-5 h-5 block dark:hidden"></i>
+          title="Theme: Click to cycle Light → Dark → System">
+          <i data-feather="sun" class="w-5 h-5 theme-icon theme-light"></i>
+          <i data-feather="moon" class="w-5 h-5 theme-icon theme-dark hidden"></i>
+          <i data-feather="monitor" class="w-5 h-5 theme-icon theme-system hidden"></i>
         </button>
         <button class="md:hidden">
           <i data-feather="menu" class="text-gray-800 dark:text-white"></i>
@@ -365,29 +375,83 @@
   </section>
 
   <script>
-    // Theme switching functionality
-    function initTheme() {
-      // Check for saved theme preference or default to system preference
-      const savedTheme = localStorage.getItem('theme');
+    // Theme switching functionality with three states: light, dark, system
+    function getThemePreference() {
+      return localStorage.getItem('theme') || 'system';
+    }
+
+    function applyTheme(theme) {
       const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-      if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+      if (theme === 'dark' || (theme === 'system' && systemPrefersDark)) {
         document.documentElement.classList.add('dark');
       } else {
         document.documentElement.classList.remove('dark');
       }
+
+      updateThemeIcons(theme);
+    }
+
+    function updateThemeIcons(theme) {
+      // Update both desktop and mobile icons
+      const buttons = ['theme-toggle', 'theme-toggle-mobile'];
+
+      buttons.forEach(buttonId => {
+        const button = document.getElementById(buttonId);
+        if (!button) return;
+
+        const lightIcon = button.querySelector('.theme-light');
+        const darkIcon = button.querySelector('.theme-dark');
+        const systemIcon = button.querySelector('.theme-system');
+
+        // Hide all icons first
+        [lightIcon, darkIcon, systemIcon].forEach(icon => {
+          if (icon) icon.classList.add('hidden');
+        });
+
+        // Show the appropriate icon
+        switch (theme) {
+          case 'light':
+            if (lightIcon) lightIcon.classList.remove('hidden');
+            button.title = 'Theme: Light (click for Dark)';
+            break;
+          case 'dark':
+            if (darkIcon) darkIcon.classList.remove('hidden');
+            button.title = 'Theme: Dark (click for System)';
+            break;
+          case 'system':
+            if (systemIcon) systemIcon.classList.remove('hidden');
+            button.title = 'Theme: System (click for Light)';
+            break;
+        }
+      });
+    }
+
+    function initTheme() {
+      const theme = getThemePreference();
+      applyTheme(theme);
     }
 
     function toggleTheme() {
-      const isDark = document.documentElement.classList.contains('dark');
+      const currentTheme = getThemePreference();
+      let nextTheme;
 
-      if (isDark) {
-        document.documentElement.classList.remove('dark');
-        localStorage.setItem('theme', 'light');
-      } else {
-        document.documentElement.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
+      // Cycle through: light → dark → system → light
+      switch (currentTheme) {
+        case 'light':
+          nextTheme = 'dark';
+          break;
+        case 'dark':
+          nextTheme = 'system';
+          break;
+        case 'system':
+        default:
+          nextTheme = 'light';
+          break;
       }
+
+      localStorage.setItem('theme', nextTheme);
+      applyTheme(nextTheme);
     }
 
     // Initialize theme on page load
@@ -411,14 +475,16 @@
 
       // Listen for system theme changes
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
-        if (!localStorage.getItem('theme')) {
-          if (e.matches) {
-            document.documentElement.classList.add('dark');
-          } else {
-            document.documentElement.classList.remove('dark');
-          }
+        const currentTheme = getThemePreference();
+        if (currentTheme === 'system') {
+          applyTheme('system'); // Re-apply system theme to reflect the change
         }
       });
+
+      // Initial icon setup after feather icons are loaded
+      setTimeout(() => {
+        updateThemeIcons(getThemePreference());
+      }, 100);
     });
 
     // Initialize Vanta.js background
